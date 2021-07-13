@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-app-deployment
+  labels:
+    app: helloworld
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: helloworld
+  template:
+    metadata:
+      labels:
+        app: helloworld
+    spec:
+      containers:
+      - image: saboor922/my_docker_flask:latest
+        imagePullPolicy: IfNotPresent
+        name: helloworld-flask-container
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "0.3"
+          requests:
+            memory: 128Mi
+            cpu: "0.1"
+        ports:
+        - containerPort: 8081
+          protocol: TCP
+      nodeSelector:
+        color: blue

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kcom-app-deployment
+  labels:
+    app: kcom
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kcom
+  template:
+    metadata:
+      labels:
+        app: kcom
+    spec:
+      containers:
+      - image: saboor922/kcom_docker_flask:latest
+        imagePullPolicy: IfNotPresent
+        name: kcom-flask-container
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "0.3"
+          requests:
+            memory: 128Mi
+            cpu: "0.1"
+        ports:
+        - containerPort: 8082
+          protocol: TCP
+      nodeSelector:
+        color: green

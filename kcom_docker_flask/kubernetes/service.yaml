@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kcom-app-service
+  annotations:
+        service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+spec:
+  selector:
+    app: kcom
+  type: LoadBalancer
+  ports:
+   -  name: http
+      nodePort: 30082
+      protocol: TCP
+      port: 8082
+      targetPort: 8082
